@@ -1,0 +1,307 @@
+
+:root {
+    --input-color: #eeeeee;
+    --primary-color: #394a6d;
+    --shadow-basic: -5px -5px 10px rgb(207, 206, 206), 5px 5px 8px #babebc;
+    font-size: 14px;
+}
+
+body {
+    max-width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+header h1 {
+    font-size: 3em;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
+.select-wrapper {
+    position: relative;
+    user-select: none;
+    flex: 1;
+}
+
+.select {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-width: 0 2px 0 2px;
+    border-style: solid;
+    border-color: var(--primary-color);
+}
+
+.select__trigger {
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    font-size: 20px;
+    font-weight: 300;
+    color: #3b3b3b;
+    height: 60px;
+    line-height: 60px;
+    background: #ffffff;
+    cursor: pointer;
+    border-width: 2px 0 2px 0;
+    border-style: solid;
+    border-color: var(--primary-color);
+}
+
+.custom-options {
+    position: absolute;
+    display: block;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border: 2px solid var(--primary-color);
+    border-top: 0;
+    background: #fff;
+    transition: all 0.5s;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.select.open .custom-options {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+.custom-option {
+    position: relative;
+    display: block;
+    padding: 0 22px 0 22px;
+    font-size: 22px;
+    font-weight: 300;
+    color: #3b3b3b;
+    line-height: 60px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.custom-option:hover {
+    cursor: pointer;
+    background-color: #b2b2b2;
+}
+
+.custom-option.selected {
+    color: #ffffff;
+    background-color: var(--primary-color);
+}
+
+.select-arrow {
+    position: relative;
+    height: 15px;
+    width: 15px;
+}
+
+.select-arrow::before,
+.select-arrow::after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    width: 0.15rem;
+    height: 100%;
+    transition: all 0.5s;
+}
+
+.select-arrow::before {
+    left: -5px;
+    transform: rotate(45deg);
+    background-color: var(--primary-color);
+}
+
+.select-arrow::after {
+    left: 5px;
+    transform: rotate(-45deg);
+    background-color: var(--primary-color);
+}
+
+.open .select-arrow::before {
+    left: -5px;
+    transform: rotate(-45deg);
+}
+
+.open .select-arrow::after {
+    left: 5px;
+    transform: rotate(45deg);
+}
+
+#MainSearch .select-wrapper, 
+#MainSearch .select, 
+#MainSearch .select .select__trigger {
+    border-radius: 15px 0 0 15px;
+    border-right: none;
+}
+
+#MainSearch .select-wrapper .select .custom-options {
+    margin-top: 5px;
+    border: var(--primary-color) 2px solid;
+    border-radius: 15px;
+}
+
+
+#MainSearch .custom-options {
+    box-shadow: 0px 5px 10px 2px rgb(1, 1, 1, 0.2);
+}
+
+#MainSearch .custom-options:last-child {
+    border-radius: 0 0 15px 15px;
+}
+
+#MainSearch .custom-options:first-child {
+    border-radius: 15px 15px 0 0;
+}
+
+
+#MainSearch .custom-option:hover {
+    border-radius: 13px;
+    margin: 5px;
+}
+
+#MainSearch .custom-option {
+    border-radius: 13px;
+    padding: 10px 10px;
+    line-height: normal;
+    font-size: medium;
+}
+
+#MainSearch {
+    position: sticky;
+    top: 10px;
+    width: clamp(100px, 100%, 600px);
+    height: 60px;
+    margin: auto 10px;
+    margin-top: 10em;
+    gap: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0;
+    border-radius: 20px;
+    box-shadow: var(--shadow-basic)
+}
+
+#MainSearch .select-wrapper {
+    margin: 0;   
+}
+
+#MainSearch input {
+    flex-grow: 0.75;
+    border-radius: 0;
+    font-size: medium;
+    height: 100%;
+    padding: 0 15px;
+    margin: 0;
+    border: none;
+    border-top: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    display: block;
+    outline: none;
+    font-family: inherit;
+}
+
+#MainSearch button {
+    flex: 0.5;
+    height: 64px;
+    display: block;
+    font-size: medium;
+    background: white;
+    border: 2px solid var(--primary-color);
+    border-left: none;
+    border-radius: 0 15px 15px 0;
+    margin: 0;
+    font-family: inherit;
+    transition: .5s;
+}
+
+#MainSearch button span {
+    transition: .2s;    
+}
+
+#MainSearch button:hover span {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+#MainSearch button:active span {
+    padding: 10px;
+}
+
+#SearchResult {
+    margin: 20px 15px;
+    width: clamp(100px, 100%, 600px);
+}
+
+.hobby {
+    background-color: white;
+    padding: 10px 15px;
+    margin: 10px 15px 30px 15px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-basic);
+}
+
+.hobby .hobby-tags {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.hobby-category, 
+.hobby-type {
+    background: var(--primary-color);
+    color: white;
+    padding: 5px;
+    border-radius: 10px;   
+}
+
+.header-options {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.btn {
+    font-size: medium;
+    box-shadow: var(--shadow-basic);
+    border: 2px solid var(--primary-color);
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 15px;
+    transition: .2s;
+}
+
+.btn:hover {
+    scale: 1.05;
+}
+
+.btn:active {
+    scale: 0.95;
+}
