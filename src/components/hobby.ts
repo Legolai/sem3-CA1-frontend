@@ -1,33 +1,27 @@
+import { SupTag } from "../utility";
 import { HobbyEntity } from "../interfaces";
 
 
 const Hobby = (hobby: HobbyEntity) => {
-    const component = document.createElement("div");
-    component.classList.add("hobby");
+    const component = new SupTag("div").addClass("hobby");
 
-    const header = document.createElement("h3");
-    header.textContent = hobby.name;
-    component.appendChild(header);
+    const header = new SupTag("h3").setTextContent(hobby.name);
+    component.appendTag(header);
 
-    const holder = document.createElement("div");
-    holder.classList.add("hobby-tags");
-    component.appendChild(holder);
+    const holder = new SupTag("div").addClass("hobby-tags");
+    component.appendTag(holder);
 
-    const category = document.createElement("div");
-    category.classList.add("hobby-category");
-    category.textContent = hobby.category;
-    holder.appendChild(category);
+    const category = new SupTag("div").addClass("hobby-category").setTextContent(hobby.category);
+    holder.appendTag(category);
 
-    const type = document.createElement("div");
-    type.classList.add("hobby-type");
-    type.textContent = hobby.type;
-    holder.appendChild(type);
+    const type = new SupTag("div").addClass("hobby-type").setTextContent(hobby.type);
+    holder.appendTag(type);
 
-    const link = document.createElement("a");
-    link.href = hobby.description;
-    link.target = "_blank";
-    link.textContent = "Description";
-    component.appendChild(link);
+    const link = new SupTag("a");
+    link.element.href = hobby.description;
+    link.element.target = "_blank";
+    link.element.textContent = "Description";
+    component.appendTag(link);
 
     return component;
 };

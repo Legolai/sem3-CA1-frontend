@@ -1,10 +1,9 @@
+import { SupTag } from "./../utility";
 import CreateDropDrown from "./dropdown";
 
 
 const MainSearch = (searchFunction: Function) => {
-    const component = document.createElement("div");
-    component.id = "MainSearch";
-
+    const component = new SupTag("div").setId("MainSearch");
 
     const select = CreateDropDrown([{
         text: "Hobby",
@@ -15,24 +14,23 @@ const MainSearch = (searchFunction: Function) => {
         defaultSelected: true,
     }]);
 
-    component.appendChild(select);
+    component.appendTag(select);
 
-    const inputField = document.createElement("input");
-    inputField.type = "text";
-    inputField.placeholder = "search...";
-    component.appendChild(inputField);
+    const inputField = new SupTag("input");
+    inputField.element.type = "text";
+    inputField.element.placeholder = "search...";
+    component.appendTag(inputField);
 
-    const searchBtn = document.createElement("button");
-    const searchBtnText = document.createElement("span");
-    searchBtnText.textContent = "Find";
-    searchBtn.appendChild(searchBtnText);
+    const searchBtn = new SupTag("button");
+    const searchBtnText = new SupTag("span").setTextContent("Find");
+    searchBtn.appendTag(searchBtnText);
     searchBtn.addEventListener("click", () => {
-        const type = select.querySelector(".selected")?.getAttribute("data-value")!;
-        const searchText = inputField.value;
+        const type = select.element.querySelector(".selected")?.getAttribute("data-value")!;
+        const searchText = inputField.element.value;
         searchFunction(type, searchText);
     });
 
-    component.appendChild(searchBtn);
+    component.appendTag(searchBtn);
 
     return component;
 };

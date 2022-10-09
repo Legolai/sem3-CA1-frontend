@@ -1,45 +1,46 @@
 import "./css/main.css";
-import { MainSearch } from "./components";
+import { MainSearch, Modal, PersonForm } from "./components";
 import search from "./search";
+import { SupTag } from "./utility";
 
 const app = document.querySelector("#App");
 
-const header = document.createElement("header");
-const h1 = document.createElement("h1");
-h1.textContent = "Hobbytisten";
-header.appendChild(h1);
+const header = new SupTag("header");
+const h1 = new SupTag("h1").setTextContent("Hobbytisten");
+header.appendTag(h1);
 
 
 app?.appendChild(
-  header
+  header.element
 );
 
 app?.appendChild(
-  MainSearch(search)
+  MainSearch(search).element
 );
 
-const createHobbyBtn = document.createElement("button");
-createHobbyBtn.textContent = "Create Hobby";
-createHobbyBtn.classList.add("btn");
+const createHobbyBtn = new SupTag("button").addClass("btn").setTextContent("Create Hobby");
 
-const createPersonBtn = document.createElement("button");
-createPersonBtn.textContent = "Create Person";
-createPersonBtn.classList.add("btn");
+const hook = { open: () => { }, close: () => { } };
+const personFormModal = Modal(PersonForm, "PersonModalForm", "Create a Person", hook);
 
-const headerOptions = document.createElement("div");
-headerOptions.classList.add("header-options");
+const createPersonBtn = new SupTag("button").addClass("btn").setTextContent("Create Person").addEventListener("click", () => {
+  hook.open();
+});
 
-headerOptions.appendChild(createHobbyBtn);
-headerOptions.appendChild(createPersonBtn);
-header.appendChild(headerOptions);
+const headerOptions = new SupTag("div").addClass("header-options").appendTag(createHobbyBtn, createPersonBtn);
+
+header.appendTag(headerOptions);
 
 
 
-const searchResult = document.createElement("div");
-searchResult.id = "SearchResult";
+const searchResult = new SupTag("div").setId("SearchResult");
 
 app?.appendChild(
-  searchResult
+  searchResult.element
+);
+
+app?.appendChild(
+  personFormModal.element
 );
 
 window.addEventListener('click', (e) => {

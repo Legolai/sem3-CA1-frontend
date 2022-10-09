@@ -1,3 +1,5 @@
+import { SupTag } from "../utility";
+
 interface Option {
     text: string | number;
     value: string | number;
@@ -7,62 +9,47 @@ interface Option {
 
 
 const CreateOption = (param: Option) => {
-    const option = document.createElement("span");
-    option.className = "custom-option";
-    if (param.defaultSelected) option.classList.add("selected");
-    option.textContent = param.text.toString();
-    option.setAttribute("data-value", param.value.toString());
+    const option = new SupTag("span").addClass("custom-option");
+    if (param.defaultSelected) option.addClass("selected");
+    option.setTextContent(param.text);
+    option.setAttr("data-value", param.value.toString());
     return option;
 };
 
 
 const CreateDropDrown = (options: Option[]) => {
-    const selectWrapper = document.createElement("div");
-    selectWrapper.className = "select-wrapper";
-
-    const select = document.createElement("div");
-    select.className = "select";
-
-    const optionsElm = document.createElement("div");
-    optionsElm.className = "custom-options";
-
-    const current = document.createElement("span");
+    const selectWrapper = new SupTag("div").addClass("select-wrapper");
+    const select = new SupTag("div").addClass("select");
+    const optionsElm = new SupTag("div").addClass("custom-options");
+    const current = new SupTag("span");
 
 
     options.forEach(o => {
         const option = CreateOption(o);
 
-        if (o.defaultSelected) current.textContent = o.text.toString();
+        if (o.defaultSelected) current.setTextContent(o.text);
 
         option.addEventListener("click", () => {
-            if (!option.classList.contains("selected")) {
-                option.parentNode?.querySelector(".custom-option.selected")?.classList.remove('selected');
-                option.classList.add("selected");
-                current.textContent = option.textContent;
+            if (!option.hasClass("selected")) {
+                option.element.parentNode?.querySelector(".custom-option.selected")?.classList.remove('selected');
+                option.addClass("selected");
+                current.setTextContent(option.getTextContent());
             }
         });
 
-        optionsElm.appendChild(option);
+        optionsElm.appendTag(option);
     });
 
-    const selectTrigger = document.createElement("div");
-    selectTrigger.className = "select__trigger";
+    const selectTrigger = new SupTag("div").addClass("select__trigger");
+    const arrow = new SupTag("div").addClass("select-arrow");
 
-    const arrow = document.createElement("div");
-    arrow.className = "select-arrow";
+    selectTrigger.appendTag(arrow, current);
+    select.appendTag(selectTrigger, optionsElm);
+    selectWrapper.appendTag(select);
 
-    selectTrigger.appendChild(arrow);
-
-
-    selectTrigger.appendChild(current);
-
-    select.appendChild(selectTrigger);
-    select.appendChild(optionsElm);
-
-    selectWrapper.appendChild(select);
 
     selectWrapper.addEventListener("click", () => {
-        select.classList.toggle("open");
+        select.toggleClass("open");
     });
 
 
